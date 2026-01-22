@@ -43,7 +43,6 @@ Ensure you have a C compiler (GCC) and Make installed.
 git clone [https://github.com/still-learner-pseudo/Multithreaded-Network-Server-C.git](https://github.com/still-learner-pseudo/Multithreaded-Network-Server-C.git)
 cd Multithreaded-Network-Server-C
 
-# Build the project using Make (assuming a Makefile is present)
 make
 
 # OR manually compile
