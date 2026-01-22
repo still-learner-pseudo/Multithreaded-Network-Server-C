@@ -18,29 +18,29 @@ void fileReader( char* input, char* output ) {
 
 	char buffer[BUFFER_SIZE];
 
-	setSignalHandler();
-	
-	if( openFIFO() == -1 ) {
-		perror( "Couldn't open fifo from the client side\n" );
-		exit(-1);
-	}
+	// setSignalHandler();
+
+	// if( openFIFO() == -1 ) {
+	// 	perror( "Couldn't open fifo from the client side\n" );
+	// 	exit(-1);
+	// }
 
 	while( fgets( buffer, BUFFER_SIZE - 1, inputFile ) != NULL ) {
 		// printf( "%s\n", buffer );
 		if( buffer[0] == '#' ) {
-			if( !strncasecmp( buffer,  "# Initial Database", strlen( "# Initial Database" ) ) ) {
-				while( fgets( buffer, BUFFER_SIZE - 1, inputFile ) !=  NULL ) {
-					if( buffer[0] == '#' ) {
-						fseek( inputFile, -strlen( buffer ) - 1, SEEK_CUR );
-						break;
-					}
-					else if( buffer[0] != '\n' ) {
-						addInitialData( buffer );
-					}
-				}
+			// if( !strncasecmp( buffer,  "# Initial Database", strlen( "# Initial Database" ) ) ) {
+			// 	while( fgets( buffer, BUFFER_SIZE - 1, inputFile ) !=  NULL ) {
+			// 		if( buffer[0] == '#' ) {
+			// 			fseek( inputFile, -strlen( buffer ) - 1, SEEK_CUR );
+			// 			break;
+			// 		}
+			// 		else if( buffer[0] != '\n' ) {
+			// 			addInitialData( buffer );
+			// 		}
+			// 	}
 				// printf( "Database Initialized\n" );
-			}
-			else if( !strncasecmp( buffer, "# Add Student", strlen( "# Add Student" ) ) ) {
+			// }
+			if( !strncasecmp( buffer, "# Add Student", strlen( "# Add Student" ) ) ) {
 				while( fgets( buffer, BUFFER_SIZE - 1, inputFile ) !=  NULL ) {
 					if( buffer[0] == '#' ) {
 						fseek( inputFile, -strlen( buffer ) - 1, SEEK_CUR );
@@ -118,7 +118,7 @@ void fileReader( char* input, char* output ) {
 
 	fclose( inputFile );
 	// writeStudentData( outputFile );
-	writeToFile( output );
+	// writeToFile( output );
 	// fclose( outputFile );
 }
 
@@ -145,7 +145,7 @@ void addInitialData( char* buffer ) {
 	if( tokens == 4 ) {
 
 		// sscanf( buffer, "%d, %99[^, ], %f, %d", &rollNo, name, &cgpa, &numSubjects );
-            
+
         	//trimSpaces( name );
 
 		rollNumber = rollNo;
@@ -257,7 +257,7 @@ void deleteStudentData( char* buffer ) {
     int tokens = sscanf( temp, "%d", &rollNo );
 
 	if( tokens == 1) {
-		
+
 		// sscanf( buffer, "%d", &rollNo );
 
 		deleteStudent( rollNo );
@@ -265,7 +265,7 @@ void deleteStudentData( char* buffer ) {
 	else{
 		fprintf(stderr, "Invalid data in delete student: %s\n", buffer);
 		exit(-1);
-	
+
 	}
 }
 
@@ -286,7 +286,7 @@ void addCourseData( char* buffer ) {
     int tokens = sscanf( temp, "%d, %d, %d", &rollNo, &courseCode, &marks );
 
 	if( tokens == 3 ) {
-		
+
 		// sscanf( buffer, "%d, %d, %d", &rollNo, &courseCode, &marks );
 
 		addCourseStudent( rollNo, courseCode, marks );
@@ -314,7 +314,7 @@ void deleteCourseData( char* buffer ) {
     int tokens = sscanf( temp, "%d, %d", &rollNo, &courseCode );
 
 	if( tokens == 2 ) {
-		
+
 		sscanf( buffer, "%d, %d", &rollNo, &courseCode );
 
 		deleteCourseStudent( rollNo, courseCode );
@@ -342,7 +342,7 @@ void modifyCourseData( char* buffer ) {
     int tokens = sscanf( temp, "%d, %d, %d", &rollNo, &courseCode, &marks );
 
 	if( tokens == 3 ) {
-		
+
 		sscanf( buffer, "%d, %d, %d", &rollNo, &courseCode, &marks );
 
 		modifyCourseStudnet( rollNo, courseCode, marks );
@@ -359,13 +359,13 @@ void trimSpaces(char* buffer) {
     }
 
     int read = 0, write = 0;
-    
+
     while ( buffer[read] != '\0' ) {
         if ( !isspace( ( unsigned char ) buffer[read] ) ) {
             buffer[write++] = buffer[read];
         }
         read++;
     }
-    
+
     buffer[write] = '\0';
 }
