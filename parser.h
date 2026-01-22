@@ -1,10 +1,11 @@
-#include "student.h"
+// #include "student.h"
+#include "client.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
-void fileReader( const char* input, const char* output );
+void fileReader( char* input, char* output );
 
 void addInitialData( char* buffer );
 void addStudentData( char* buffer );

@@ -152,6 +152,8 @@ void writeStudentData( FILE* outputFile ) {
 		student = student -> prev;
 	}
 
+    free(students);
+    students = NULL;
 	// printf( "Data written to file\n" );
 
 	return;
