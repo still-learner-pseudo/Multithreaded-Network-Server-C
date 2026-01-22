@@ -3,20 +3,27 @@
 #define BUFFER_SIZE 2048
 int rollNumber = -1;
 
-void fileReader( const char* input, const char* output ) {
+void fileReader( char* input, char* output ) {
 	FILE *inputFile = fopen( input, "r" );
 	if( !inputFile ) {
 		perror( "Error with opening input file" );
 		exit(-1);
 	}
-	FILE *outputFile = fopen( output, "w" );
-	if( !outputFile ) {
-		perror( "Error with opening output file" );
-		fclose( inputFile );
-		exit(-1);
-	}
+	// FILE *outputFile = fopen( output, "w" );
+	// if( !outputFile ) {
+	// 	perror( "Error with opening output file" );
+	// 	fclose( inputFile );
+	// 	exit(-1);
+	// }
 
 	char buffer[BUFFER_SIZE];
+
+	setSignalHandler();
+	
+	if( openFIFO() == -1 ) {
+		perror( "Couldn't open fifo from the client side\n" );
+		exit(-1);
+	}
 
 	while( fgets( buffer, BUFFER_SIZE - 1, inputFile ) != NULL ) {
 		// printf( "%s\n", buffer );
@@ -110,8 +117,9 @@ void fileReader( const char* input, const char* output ) {
 	}
 
 	fclose( inputFile );
-	writeStudentData( outputFile );
-	fclose( outputFile );
+	// writeStudentData( outputFile );
+	writeToFile( output );
+	// fclose( outputFile );
 }
 
 void addInitialData( char* buffer ) {
