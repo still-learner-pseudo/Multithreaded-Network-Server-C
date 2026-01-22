@@ -28,11 +28,11 @@ int addStudent( int rollNo, char* name, float cgpa, int numSubjects ) {
         perror( "Malloc failed\n" );
         return -1;
     }
-
+ 
     if( ( students ) != NULL ) {
         ( students ) -> prev = newStudent;
     }
-     
+
     newStudent -> prev = NULL;
     newStudent -> rollNo = rollNo;
     strcpy( newStudent -> name, name );
@@ -92,7 +92,7 @@ int addCourseStudent( int rollNo, int courseCode, int marks ) {
     // }
 
     int result = addCourse( &( student -> courses ), courseCode, marks );
-    
+
     if( result == 1 ) {
         student -> numSubjects++;
     }
@@ -135,12 +135,19 @@ void writeStudentData( FILE* outputFile ) {
 		return;
 	}
 
+    printf( "Writing data to file\n" );
+
 	while( student -> next != NULL ) {
 		student = student -> next;
 	}
 
 	while( student != NULL ) {
 		fprintf( outputFile, "%d, %s, %0.1f, %d\n", student -> rollNo, student -> name, student -> cgpa, student -> numSubjects );
+        
+        if( student -> courses == NULL ) {
+            student = student -> prev;
+            continue;
+        }
 		course* course = student -> courses;
 		while( course -> next != NULL ) {
 			course = course -> next;
@@ -152,8 +159,8 @@ void writeStudentData( FILE* outputFile ) {
 		student = student -> prev;
 	}
 
-    free(students);
-    students = NULL;
+    // free(students);
+    // students = NULL;
 	// printf( "Data written to file\n" );
 
 	return;

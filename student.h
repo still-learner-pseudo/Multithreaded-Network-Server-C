@@ -1,6 +1,7 @@
 #include "course.h"
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 typedef struct student student;
 // typedef struct studentData studentData;
 
@@ -31,4 +32,4 @@ int modifyStudent( int rollNo, float cgpa );
 int addCourseStudent( int rollNo, int courseCode, int marks );
 int deleteCourseStudent( int rollNo, int courseCode );
 int modifyCourseStudnet( int rollNo, int courseCode, int marks );
-void writeStudentData( FILE* file );
+void writeStudentData( FILE* outputFile );
