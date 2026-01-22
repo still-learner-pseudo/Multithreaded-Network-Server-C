@@ -52,7 +52,7 @@ gcc -o server server.c -lpthread
 
 ## 💻 Usage
 
-Start the server by specifying the port (if applicable in your implementation):
+Start the server by specifying the port:
 
 ```bash
 ./server <PORT>
@@ -66,7 +66,7 @@ Example:
 
 ```
 
-To test the server, you can use `telnet`, `nc` (netcat), or the included client script (if available).
+To test the server, you can use `telnet`, `nc` (netcat), or the included client script.
 
 ```bash
 # In a separate terminal
